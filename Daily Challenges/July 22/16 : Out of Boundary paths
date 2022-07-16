@@ -1,0 +1,23 @@
+class Solution:
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        memo = [[[-1 for i in range(51)] for j in range(51) ]for k in range(51)]
+        mode = 1000000007
+        
+        def dfs_memo(i,j,move):
+            if i < 0 or j < 0 or i >= m or j >= n:
+                return 1
+            elif move == 0:
+                return 0
+            elif memo[i][j][move] != -1:
+                return memo[i][j][move]
+            res = 0
+            res = dfs_memo(i-1,j,move-1) + \
+                  dfs_memo(i+1,j,move-1) + \
+                  dfs_memo(i,j-1,move-1) + \
+                  dfs_memo(i,j+1,move-1) 
+            res = res % mode
+            memo[i][j][move] = res
+            print(res,i,j)
+            return res 
+                
+        return dfs_memo(startRow,startColumn,maxMove)
