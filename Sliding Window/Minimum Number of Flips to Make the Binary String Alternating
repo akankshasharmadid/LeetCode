@@ -1,0 +1,30 @@
+class Solution:
+    def minFlips(self, s: str) -> int:
+        l = len(s)
+        s = s+s
+        a = '01' * l
+        b = '10' * l
+        right = l
+        left = a_count = b_count = 0
+        for i in range(left,right):
+            if s[i]!=a[i]:
+                a_count+=1
+            if s[i]!=b[i]:
+                b_count+=1
+        left+=1
+        final = min(a_count,b_count)
+        while right<l*2:
+            if s[left-1] != a[left-1]:
+                a_count -= 1
+            if s[left-1] != b[left-1]:
+                b_count -= 1
+            
+            if s[right]!=a[right]:
+                a_count+=1
+            if s[right]!=b[right]:
+                b_count+=1
+            final = min(a_count,b_count,final)
+                
+            right+=1
+            left+=1
+        return(final)
