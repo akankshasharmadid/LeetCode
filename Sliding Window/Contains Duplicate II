@@ -1,0 +1,27 @@
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        
+        left = 0
+        right = 1
+        l = len(nums)
+        s = set()
+        s.add(nums[0])
+        k = min(k,l-1)
+        while right<l:
+            window = right - left
+            if window <= k:
+                s.add(nums[right])
+                if window == k  :
+                    if len(s) <= k :
+                        return True
+                    
+            else:
+                s.remove(nums[left])
+                s.add(nums[right])
+                if len(s) <= k :
+                    return True
+                left+=1
+            right+=1
+            #print(s,left,right)
+        return False
+        
