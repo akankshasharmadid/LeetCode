@@ -1,0 +1,29 @@
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        left = right = 0
+        s = set()
+        res = setCount = 0
+        while right<len(fruits):
+            if fruits[right] not in s:
+                if setCount >= 2:
+                    temp = fruits[right-1]
+                    index = left
+                    for i in s:
+                        if i!=temp:
+                            t = i                          
+                            while left<right:
+                                if fruits[left] == t:
+                                    index = left
+                                left+=1
+                    s.remove(t)
+                    s.add(fruits[right])
+                    left = index + 1
+                            
+                else:
+                    setCount+=1
+                    s.add(fruits[right])
+                res = max(res,right-left+1)
+            else:
+                res = max(res,right-left+1)
+            right+=1
+        return(res)
